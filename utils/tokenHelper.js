@@ -5,7 +5,18 @@ const generateToken = (user) => {
 }
 
 const verify = (token) => {
-    return jwt.verify(token, process.env.TOKEN_SECRET_KEY);
+    try{
+        return {
+            'statusCode': 200,
+            'token': jwt.verify(token, process.env.TOKEN_SECRET_KEY)
+        };
+    }
+    catch(err){
+        return {
+            'statusCode': 500,
+            'error': err
+        };
+    }
 }
 
 module.exports = {

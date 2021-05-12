@@ -2,16 +2,18 @@ require('dotenv').config({ 'path': '.env' });
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-
-mongoose.connect(`${process.env.DB_CONNECTION_URL}/${process.env.DB_NAME}`, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-    console.log('DB connection successfull....')
-}).catch((err) => {
-    console.log('Something went wrong while DB connection',err);
-});
-
 
 app.use(bodyParser.json());
+
+const authSecretKey = (req, res, next) => {
+    const token = req.header("secretKey");
+    if(token === process.env.SECRET_KEY) {
+        next();
+    } else {
+        res.send('Please add secret key in request header');
+    }
+}
+app.use(authSecretKey);
 
 const authentication = require('./routes/authentication');
 

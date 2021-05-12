@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../utils/dbHelper');
 const Schema = mongoose.Schema;
 let User = new Schema({
     name: {
