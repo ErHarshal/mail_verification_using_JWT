@@ -1,6 +1,7 @@
 # mail_verification_using_JWT
 
 add mail credentials in .ENV file
+add database url and database name
 
 # API Details
 
